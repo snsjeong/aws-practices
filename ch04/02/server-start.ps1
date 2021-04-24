@@ -14,7 +14,7 @@ Write-Host '[5] Allow inbound SSH connections...'
 aws ec2 authorize-security-group-ingress --group-id $SGID --protocol tcp --port 22 --cidr 0.0.0.0/0
 
 Write-Host '[6] Create and start the server...'
-$INSTANCEID=aws ec2 run-instances --image-id $AMIID --instance-type t2.micro --security-group-ids $SGID --subnet-id $SUBNETID --key-name mykey --query "Instances[0].InstanceId" --output text
+$INSTANCEID=aws ec2 run-instances --placement AvailabilityZone=ap-northeast-2c --image-id $AMIID --instance-type t2.micro --security-group-ids $SGID --subnet-id $SUBNETID --key-name mykey --query "Instances[0].InstanceId" --output text
 
 Write-Host "waiting for $INSTANCEID..."
 aws ec2 wait instance-running --instance-ids $INSTANCEID
