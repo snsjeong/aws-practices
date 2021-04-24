@@ -11,7 +11,7 @@ echo '[3] Get the default subnet ID...'
 SUBNETID=$(aws ec2 describe-subnets --query "(Subnets[?VpcId=='"$VPCID"'].SubnetId)[0]" --output text)
 
 echo '[4] Create a security group...'
-SGID=$(aws ec2 create-security-group --group-name mysecuritygroup --description "My Security Group" --vpc-id vpc-27cb4b4c --output text)
+SGID=$(aws ec2 create-security-group --group-name mysecuritygroup --description "My Security Group" --vpc-id $VPCID --output text)
 
 echo '[5] Allow inbound SSH connections...'
 aws ec2 authorize-security-group-ingress --group-id $SGID --protocol tcp --port 22 --cidr 0.0.0.0/0
